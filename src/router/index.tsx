@@ -1,19 +1,34 @@
-import React from 'react';
-import { createHashRouter } from 'react-router-dom';
-import { routes } from './routes';
+import { createBrowserRouter } from 'react-router-dom';
+import Login from '../pages/Login';
+import Welcome from '../pages/Welcome';
+import BasicLayout from '../layouts/BasicLayout';
+import { RouteGuard } from '../components/common/RouteGuard';
 
-const router = createHashRouter(routes, {
-  future: {
-    // 未达到 v7 版本时需要增加的配置
-    // v7_skipActionErrorRevalidation: true,
-    // v7_partialHydration: true,
-    // v7_normalizeFormMethod: true,
-    // v7_fetcherPersist: true,
-    // v7_relativeSplatPath: true,
-    // v7_startTransition: true
+export const router = createBrowserRouter([
+  {
+    path: '/login',
+    element: (
+      <RouteGuard>
+        <Login />
+      </RouteGuard>
+    ),
   },
-});
-
-export { router };
-export * from './types';
-export * from './routes';
+  {
+    path: '/',
+    element: (
+      <RouteGuard>
+        <BasicLayout />
+      </RouteGuard>
+    ),
+    children: [
+      {
+        path: '',
+        element: <Welcome />,
+      },
+      {
+        path: 'welcome',
+        element: <Welcome />,
+      }
+    ]
+  }
+]);
