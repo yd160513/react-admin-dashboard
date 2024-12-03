@@ -15,8 +15,13 @@ export default defineConfig({
     },
     preprocessorOptions: {
       scss: {
-        additionalData: `@use "@/styles/variables.scss" as *;`,
-      },
+        additionalData: `@use "@/styles/variables.scss" as *;`
+      }
     },
+  },
+  server: {
+    host: true,
+    port: 3000,
+    open: true,
   },
 }); 
