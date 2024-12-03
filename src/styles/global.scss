@@ -16,3 +16,13 @@ body {
 .app {
   min-height: 100vh;
 }
+
+// Ant Design 组件全局样式覆盖
+.ant-card-head-title {
+  text-align: center;
+}
+
+// Alert 组件样式调整
+.ant-alert-info {
+  margin-bottom: 24px;
+}

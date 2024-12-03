@@ -1,28 +1,28 @@
 import React from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
-import type { RouteConfig } from '@/router/types';
 
 interface RouteGuardProps {
-  children: React.ReactElement;
-  config: RouteConfig;
+  children: React.ReactNode;
 }
 
-export const RouteGuard: React.FC<RouteGuardProps> = ({ children, config }) => {
+/**
+ * 路由守卫
+ * 业务逻辑: 
+ *  1. 如果用户未登录(无 userInfo)且当前页面不是登录页,则重定向到登录页
+ *  2. 如果用户已登录且当前在登录页,则重定向到欢迎页
+ *  3. 其他情况下正常渲染子组件
+ */
+export const RouteGuard: React.FC<RouteGuardProps> = ({ children }) => {
+  const userInfo = localStorage.getItem('userInfo');
   const location = useLocation();
-  const { meta } = config;
 
-  // 设置页面标题
-  if (meta?.title) {
-    document.title = meta.title;
+  if (!userInfo && location.pathname !== '/login') {
+    return <Navigate to="/login" replace />;
   }
 
-  // 权限验证示例
-  if (meta?.requiresAuth) {
-    const isAuthenticated = localStorage.getItem('token');
-    if (!isAuthenticated) {
-      return <Navigate to="/login" state={{ from: location }} replace />;
-    }
+  if (userInfo && location.pathname === '/login') {
+    return <Navigate to="/welcome" replace />;
   }
 
-  return children;
+  return <>{children}</>;
 };
