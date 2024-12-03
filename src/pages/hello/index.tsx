@@ -9,4 +9,4 @@ const HelloPage: React.FC = () => {
   );
 };
 
-export default HelloPage; 
+export default HelloPage;

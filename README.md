@@ -277,6 +277,38 @@ type 类型：
     - 清除 pnpm 缓存：`pnpm store prune`
     - 删除 node_modules 后重新安装
 
+8. **遇到 SASS @import 弃用警告？**
+    ```
+    Deprecation Warning: Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+    More info and automated migrator: https://sass-lang.com/d/import
+    ```
+    - **简要说明**：这是因为 Sass 将在 3.0.0 版本中移除 @import 规则
+    - **快速解决**：将 SASS 文件中的 @import 替换为 @use
+      ```scss
+      // 旧写法
+      @import './variables.scss';
+      
+      // 新写法
+      @use './variables.scss' as *;
+      ```
+    - **详细说明**：[Sass 文档](https://sass-lang.com/documentation/at-rules/use)
+
+9. **遇到 ESLint 配置文件加载错误？**
+    ```
+    Error [ERR_REQUIRE_ESM]: require() of ES Module .eslintrc.js not supported.
+    .eslintrc.js is treated as an ES module file as it is a .js file whose nearest parent package.json contains "type": "module"
+    ```
+    - **简要说明**：这是因为项目使用了 `"type": "module"` 而 ESLint 配置文件需要使用 CommonJS 格式
+    - **快速解决**：将 `.eslintrc.js` 重命名为 `.eslintrc.cjs`
+    ```bash
+    mv .eslintrc.js .eslintrc.cjs
+    ```
+    - **其他解决方案**：
+      - 在 package.json 中移除 `"type": "module"`
+      - 或将配置改为 JSON 格式，使用 `.eslintrc.json`
+    
+    建议使用第一种方案，因为它最简单且不会影响项目的其他部分。这样可以保持项目使用 ES 模块，同时让 ESLint 配置文件使用 CommonJS 格式。
+
 ## 许可证
 
 MIT

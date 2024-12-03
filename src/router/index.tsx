@@ -11,9 +11,9 @@ const router = createHashRouter(routes, {
     // v7_fetcherPersist: true,
     // v7_relativeSplatPath: true,
     // v7_startTransition: true
-  }
+  },
 });
 
 export { router };
 export * from './types';
-export * from './routes'; 
+export * from './routes';

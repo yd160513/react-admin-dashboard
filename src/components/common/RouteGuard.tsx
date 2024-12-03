@@ -25,4 +25,4 @@ export const RouteGuard: React.FC<RouteGuardProps> = ({ children, config }) => {
   }
 
   return children;
-}; 
+};

@@ -27,4 +27,4 @@ export const storage = {
   remove: (key: string) => {
     localStorage.removeItem(key);
   },
-}; 
+};

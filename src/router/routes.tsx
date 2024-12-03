@@ -10,4 +10,4 @@ export const routes: RouteConfig[] = [
       title: 'Hello World',
     },
   },
-]; 
+];

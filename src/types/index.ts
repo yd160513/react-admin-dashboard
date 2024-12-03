@@ -23,4 +23,4 @@ export interface PaginatedResponse<T> extends ApiResponse {
     page: number;
     pageSize: number;
   };
-} 
+}

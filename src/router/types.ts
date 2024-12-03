@@ -7,4 +7,4 @@ export interface RouteConfig {
     requiresAuth?: boolean;
     permissions?: string[];
   };
-} 
+}
