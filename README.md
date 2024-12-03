@@ -208,8 +208,6 @@ type 类型：
 - 📱 响应式设计
 - 🎨 模块化 CSS 与 SCSS 支持
 - 🔍 ESLint + Prettier 代码规范
-- 📦 组件自动导入
-- 🚀 自动路由生成
 - 🔐 Redux Toolkit 状态管理
 - 🔐 内置权限管理
 - 📝 Git 提交信息规范化
