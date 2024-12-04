@@ -1,5 +1,5 @@
 import { mockUsers } from '../mock/auth';
-import type { LoginParams, UserInfo } from '../types/auth';
+import type { LoginParams, UserInfo } from '@/types/user';
 
 export const login = async (params: LoginParams): Promise<UserInfo> => {
   return new Promise((resolve, reject) => {
