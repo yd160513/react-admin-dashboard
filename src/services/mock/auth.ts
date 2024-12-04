@@ -1,4 +1,9 @@
 import type { MockMethod } from 'vite-plugin-mock';
+import type { LoginParams } from '@/types/user';
+
+interface MockContext {
+  body: LoginParams;
+}
 
 // 模拟用户数据
 const mockUsers = [
@@ -20,7 +25,7 @@ export default [
   {
     url: '/api/auth/login',
     method: 'post',
-    response: ({ body }) => {
+    response: ({ body }: MockContext) => {
       try {
         const user = mockUsers.find(
           u => u.username === body.username && u.password === body.password
