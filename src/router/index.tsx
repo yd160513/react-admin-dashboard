@@ -3,17 +3,10 @@ import Login from '../pages/Login';
 import Welcome from '../pages/Welcome';
 import BasicLayout from '../layouts/BasicLayout';
 import NotFound from '../pages/NotFound';
-import { RouteGuard } from '../components/common/RouteGuard';
+import { RouteGuard } from './guards/RouteGuard';
+import InitialSetup from '../pages/InitialSetup';
 
 export const router = createBrowserRouter([
-  {
-    path: '/login',
-    element: (
-      <RouteGuard>
-        <Login />
-      </RouteGuard>
-    ),
-  },
   {
     path: '/',
     element: (
@@ -33,7 +26,22 @@ export const router = createBrowserRouter([
     ]
   },
   {
-    // 处理所有未匹配的路由
+    path: '/login',
+    element: (
+      <RouteGuard>
+        <Login />
+      </RouteGuard>
+    ),
+  },
+  {
+    path: '/initial-setup',
+    element: (
+      <RouteGuard>
+        <InitialSetup />
+      </RouteGuard>
+    ),
+  },
+  {
     path: '*',
     element: (
       <RouteGuard>

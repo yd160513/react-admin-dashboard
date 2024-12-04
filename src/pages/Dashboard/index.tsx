@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, Typography } from 'antd';
-import { UserInfo } from '../../types/user';
+import { UserInfo } from '@/types/user';
 import styles from './index.module.scss';
 
 const { Title } = Typography;

@@ -1,0 +1,25 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f0f2f5;
+}
+
+.card {
+  width: 100%;
+  max-width: 400px;
+  
+  :global {
+    .ant-card-head-title {
+      text-align: center;
+      font-size: 24px;
+    }
+  }
+}
+
+.tip {
+  margin-bottom: 24px;
+  color: #666;
+  text-align: center;
+} 

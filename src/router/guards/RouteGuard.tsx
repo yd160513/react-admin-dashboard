@@ -15,6 +15,11 @@ interface RouteGuardProps {
 export const RouteGuard: React.FC<RouteGuardProps> = ({ children }) => {
   const userInfo = localStorage.getItem('userInfo');
   const location = useLocation();
+  const allowInitialSetup = sessionStorage.getItem('allowInitialSetup');
+
+  if (location.pathname === '/initial-setup' && allowInitialSetup === 'true') {
+    return <>{children}</>;
+  }
 
   if (!userInfo && location.pathname !== '/login') {
     return <Navigate to="/login" replace />;

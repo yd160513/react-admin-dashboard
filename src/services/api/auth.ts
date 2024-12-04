@@ -1,20 +1,5 @@
-import { LoginParams, UserInfo } from '../types/user';
-
-// 模拟用户数据
-const mockUsers = [
-  {
-    id: '1',
-    username: 'admin',
-    password: 'admin123',
-    role: 'admin' as const
-  },
-  {
-    id: '2',
-    username: 'user',
-    password: 'user123',
-    role: 'user' as const
-  }
-];
+import { mockUsers } from '../mock/auth';
+import type { LoginParams, UserInfo } from '../types/auth';
 
 export const login = async (params: LoginParams): Promise<UserInfo> => {
   return new Promise((resolve, reject) => {

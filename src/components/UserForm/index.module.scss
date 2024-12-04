@@ -1,0 +1,16 @@
+.form {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.submitItem {
+  margin-top: 24px;
+  margin-bottom: 0;
+}
+
+:global {
+  .ant-form-item-label {
+    font-weight: 500;
+  }
+} 
