@@ -1,8 +1,8 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Form, Input, Button, message, Card, Alert } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
-import { login } from '@/services/api/auth';
+import { login, checkSystemInitialStatus } from '@/services';
 import { LoginParams } from '@/types/user';
 import styles from './index.module.scss';
 
@@ -14,30 +14,11 @@ const Login: React.FC = () => {
   useEffect(() => {
     const checkInitialSetup = async () => {
       try {
-        console.log('开始检查系统状态');
-        const response = await fetch('/api/system/check-initial', {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          }
-        });
-
-        console.log('API响应:', response);
-        if (!response.ok) {
-          console.warn('API 请求失败:', response.status);
-          setIsChecking(false);
-          return;
-        }
-
-        const result = await response.json();
-        console.log('API返回数据:', result);
+        const result = await checkSystemInitialStatus();
         
-        if (result.code === 200 && !result.data.hasUsers && result.data.allowInitialization) {
+        if (!result.hasUsers && result.allowInitialization) {
           sessionStorage.setItem('allowInitialSetup', 'true');
-          setIsChecking(false);
           navigate('/initial-setup', { replace: true });
-          return;
         }
       } catch (error) {
         console.error('检查系统状态失败:', error);
@@ -54,7 +35,6 @@ const Login: React.FC = () => {
     try {
       setLoading(true);
       const userInfo = await login(values);
-      // 存储用户信息到 localStorage
       localStorage.setItem('userInfo', JSON.stringify(userInfo));
       message.success('登录成功！');
       navigate('/welcome');
