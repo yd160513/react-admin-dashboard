@@ -16,7 +16,13 @@ const Login: React.FC = () => {
       try {
         const result = await checkSystemInitialStatus();
         
+        // 如果系统没有用户，并且允许初始化，则跳转到初始化页面。
+        // hasUsers: 是否存在用户
+        // allowInitialization: 是否允许初始化
         if (!result.hasUsers && result.allowInitialization) {
+          
+          // 系统初始化是一次性的操作，不需要持久保存，所以使用 sessionStorage。
+          // 在初始化成功之后也会调用 sessionStorage.removeItem('allowInitialSetup'); 清除标志。
           sessionStorage.setItem('allowInitialSetup', 'true');
           navigate('/initial-setup', { replace: true });
         }
