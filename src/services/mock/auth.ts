@@ -1,5 +1,6 @@
 import type { MockMethod } from 'vite-plugin-mock';
 import type { LoginParams } from '@/types/user';
+import { mockState } from './state';
 
 interface MockContext {
   body: LoginParams;
@@ -33,13 +34,18 @@ export default [
 
         if (user) {
           const { password, ...rest } = user;
+          const userState = {
+            ...rest,
+            token: 'mock_token_' + Date.now()
+          };
+          
+          // 使用 mockState 管理用户状态
+          mockState.setUserState(userState);
+
           return {
             code: 200,
             success: true,
-            data: {
-              ...rest,
-              token: 'mock_token_' + Date.now()
-            }
+            data: userState
           };
         }
 

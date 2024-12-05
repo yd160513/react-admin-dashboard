@@ -1,9 +1,11 @@
 import type { MockMethod } from 'vite-plugin-mock';
+import { mockState } from './state';
 
 interface RequestBody {
   username?: string;
   email?: string;
   password?: string;
+  confirmPassword?: string;
 }
 
 interface MockContext {
@@ -12,16 +14,15 @@ interface MockContext {
   headers: Record<string, string>;
 }
 
-// 添加一个模拟存储
-const mockStorage = new Map<string, string>();
-
-const mockApis: MockMethod[] = [
+export default [
   {
     url: '/api/system/check-initial',
     method: 'get',
     response: () => {
       try {
-        const isInitialized = mockStorage.get('systemInitialized') === 'true';
+        const userState = mockState.getUserState();
+        const isInitialized = !!userState;
+        
         return {
           code: 200,
           success: true,
@@ -45,20 +46,27 @@ const mockApis: MockMethod[] = [
     method: 'post',
     response: (context: MockContext) => {
       try {
+        console.log('initialize', context);
         const { body } = context;
-        mockStorage.set('systemInitialized', 'true');
-        
+        console.log('body', body);
+        const userState = {
+          id: '1',
+          username: body.username!,
+          password: body.password!,
+          confirmPassword: body.confirmPassword,
+          role: 'admin' as const,
+          token: 'mock_token_' + Date.now()
+        };
+        console.log('userState', userState);
+        // 使用 mockState 管理用户状态
+        mockState.setUserState(userState);
+        console.log('userState', userState);
         return {
           code: 200,
           success: true,
           data: {
-            token: 'mock_token_' + Date.now(),
-            data: {
-              id: '1',
-              username: body.username,
-              email: body.email,
-              role: 'admin'
-            }
+            token: userState.token,
+            data: userState
           }
         };
       } catch (error) {
@@ -70,6 +78,4 @@ const mockApis: MockMethod[] = [
       }
     }
   }
-];
-
-export default mockApis; 
+] as MockMethod[]; 
